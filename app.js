@@ -1,3 +1,5 @@
+THREE.Cache.clear();
+
 let container;
 let camera;
 let scene;
@@ -17,8 +19,6 @@ function init() {
     container = document.querySelector('.container');
     loadingScreen = document.querySelector('.loader');
     scene =  new THREE.Scene();
-
-    THREE.Cache.enabled = true;
 
     const fov = 55;
     const aspect = container.clientWidth / container.clientHeight;
