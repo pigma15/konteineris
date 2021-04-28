@@ -1,4 +1,4 @@
-THREE.Cache.clear();
+THREE.Cache.enabled = true;
 
 let container;
 let camera;
@@ -15,7 +15,7 @@ let loadingScreen;
 
 
 
-function init() {
+async function init() {
     container = document.querySelector('.container');
     loadingScreen = document.querySelector('.loader');
     scene =  new THREE.Scene();
@@ -55,7 +55,7 @@ function init() {
     mouse = new THREE.Vector2();
 
     let loader = new THREE.GLTFLoader(manager);
-    loader.load('./3D/konteineris.glb', function(gltf) {
+    await loader.load('./3D/konteineris.glb', function(gltf) {
         scene.add(gltf.scene);
         konteineris = gltf.scene.getObjectByName( "konteineris" );
         dangtis = gltf.scene.getObjectByName( "dangtis" );
