@@ -27,14 +27,14 @@ function init() {
     camera.position.set(0, 2, 4);
     camera.rotation.x = -0.3;
 
-    /* const manager = new THREE.LoadingManager();
+    const manager = new THREE.LoadingManager();
     manager.onLoad = function () {
         loading = false;    
     };
 
     manager.onError = function ( url ) {
         console.log( 'There was an error loading ' + url );
-    }; */
+    };
 
     const ambient = new THREE.AmbientLight(0x404040, 5);
     scene.add(ambient);
@@ -52,7 +52,7 @@ function init() {
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 
-    let loader = new THREE.GLTFLoader(/* manager */);
+    let loader = new THREE.GLTFLoader(manager);
     loader.load('./3D/konteineris.glb', function(gltf) {
         scene.add(gltf.scene);
         konteineris = gltf.scene.getObjectByName( "konteineris" );
@@ -64,6 +64,7 @@ function init() {
 
 
 function animate (){
+    requestAnimationFrame(animate);
     if (!loading) {
         loadingScreen.style.display = 'none';
     }
@@ -77,7 +78,6 @@ function animate (){
         document.body.style.cursor = "default";
     }
     renderer.render(scene, camera);
-    requestAnimationFrame(animate);
 }
 
 function onMouseMove( event ) {
