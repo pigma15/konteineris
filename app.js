@@ -66,8 +66,10 @@ function animate (){
     const intersects = raycaster.intersectObjects( objects );
     if (intersects.length > 0) {
         if (dangtis.rotation.x > -0.5) dangtis.rotation.x -= 0.01;
+        document.body.style.cursor = "pointer";
     } else {
         if(dangtis.rotation.x < 0) dangtis.rotation.x += 0.01;
+        document.body.style.cursor = "default";
     }
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
