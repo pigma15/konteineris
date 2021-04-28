@@ -8,8 +8,13 @@ let raycaster;
 let mouse;
 let objects = [];
 
+let loading = true;
+let loadingScreen;
+
+
 function init() {
     container = document.querySelector('.container');
+    loadingScreen = document.querySelector('.loader');
     scene =  new THREE.Scene();
 
     const fov = 55;
@@ -19,7 +24,12 @@ function init() {
 
     camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
     camera.position.set(0, 2, 4);
-    camera.rotation.x = -0.3
+    camera.rotation.x = -0.3;
+
+    const manager = new THREE.LoadingManager();
+    manager.onLoad = function () {
+        loading = false;    
+    };
 
     const ambient = new THREE.AmbientLight(0x404040, 5);
     scene.add(ambient);
@@ -37,7 +47,7 @@ function init() {
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 
-    let loader = new THREE.GLTFLoader();
+    let loader = new THREE.GLTFLoader(manager);
     loader.load('./3D/konteineris.glb', function(gltf) {
         scene.add(gltf.scene);
         konteineris = gltf.scene.getObjectByName( "konteineris" );
@@ -49,6 +59,9 @@ function init() {
 
 
 function animate (){
+    if (!loading) {
+        loadingScreen.style.display = 'none';
+    }
     raycaster.setFromCamera( mouse, camera );
     const intersects = raycaster.intersectObjects( objects );
     if (intersects.length > 0) {
