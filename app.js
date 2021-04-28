@@ -31,6 +31,10 @@ function init() {
         loading = false;    
     };
 
+    manager.onError = function ( url ) {
+        console.log( 'There was an error loading ' + url );
+    };
+
     const ambient = new THREE.AmbientLight(0x404040, 5);
     scene.add(ambient);
 
